@@ -1,0 +1,13 @@
+name: Pull Request Workflow be
+
+on:
+  pull_request:
+    paths-ignore:
+    - 'apps/**'
+    - '!apps/be/**'
+
+jobs:
+  run-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Backend 🍏 🍏 🍏"

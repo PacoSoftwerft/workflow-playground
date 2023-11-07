@@ -1,0 +1,13 @@
+name: Pull Request Workflow fe
+
+on:
+  pull_request:
+    paths-ignore:
+    - 'apps/**'
+    - '!apps/fe/**'
+
+jobs:
+  run-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Frontend 🍏 🍏 🍏"

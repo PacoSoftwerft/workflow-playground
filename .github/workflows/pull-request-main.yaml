@@ -1,0 +1,11 @@
+name: Pull Request Workflow main
+
+on:
+  pull_request:
+
+jobs:
+  run-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - run: sleep 30
+      - run: echo "💡 💡 💡"
