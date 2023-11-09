@@ -2,10 +2,17 @@ name: Pull Request Workflow main
 
 on:
   pull_request:
+    # [opened, synchronize, reopened] are default values
+    types: [ready_for_review, opened, reopened, synchronize]
 
 jobs:
-  run-checks:
+  no-draft:
     runs-on: ubuntu-latest
     steps:
-      - run: sleep 30
-      - run: echo "💡 💡 💡"
+      - run: if [[ "${{ github.event.pull_request.draft }}" == 'true' ]]; then echo "🍎 This PR is still a DRAFT! No jobs triggered! 🍎" && exit 1; fi
+
+  run-checks:
+    if: '! github.event.pull_request.draft'
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Main 💡 💡 💡"

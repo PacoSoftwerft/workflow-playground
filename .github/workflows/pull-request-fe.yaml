@@ -2,12 +2,20 @@ name: Pull Request Workflow fe
 
 on:
   pull_request:
+    # [opened, synchronize, reopened] are default values
+    types: [ready_for_review, opened, reopened, synchronize]
     paths-ignore:
     - 'apps/**'
     - '!apps/fe/**'
 
 jobs:
+  no-draft:
+    runs-on: ubuntu-latest
+    steps:
+      - run: if [[ "${{ github.event.pull_request.draft }}" == 'true' ]]; then echo "🍎 This PR is still a DRAFT! No jobs triggered! 🍎" && exit 1; fi
+
   run-checks:
+    if: '! github.event.pull_request.draft'
     runs-on: ubuntu-latest
     steps:
       - run: echo "Frontend 🍏 🍏 🍏"
